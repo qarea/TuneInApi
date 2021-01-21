@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { Route, Switch } from 'react-router-dom';
 
-function App() {
+import { AccountProvider } from './providers/ApiDataProvider';
+import { HOME_PATH, STATION_PATH } from './config';
+import HomePage from './components/HomePage';
+import StationPage from './components/StationPage';
+
+const history = createBrowserHistory();
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AccountProvider>
+        <Router history={history}>
+          <Switch>
+            <Route exact component={HomePage} path={HOME_PATH} />
+            <Route exact component={StationPage} path={STATION_PATH} />
+          </Switch>
+        </Router>
+      </AccountProvider>
     </div>
   );
-}
+};
 
 export default App;
